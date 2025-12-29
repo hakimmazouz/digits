@@ -3,7 +3,7 @@ import { createNativeBottomTabNavigator } from "@react-navigation/bottom-tabs/un
 import Settings from "../screens/Settings";
 import PeopleStack from "../navigation/people";
 import AskToolbarBottomAccessory from "../components/AskToolbarBottomAccessory";
-import { Text, View } from "react-native";
+import { Text, useColorScheme, View } from "react-native";
 
 export type RootStackParamList = {
   Settings: undefined;
@@ -22,12 +22,13 @@ declare global {
 const Tab = createNativeBottomTabNavigator<RootStackParamList>();
 
 function RootStack() {
+  const colorScheme = useColorScheme();
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarMinimizeBehavior: "onScrollDown",
         tabBarLabelStyle: { fontSize: 10 },
-        tabBarActiveTintColor: "#00aa00",
+        tabBarActiveTintColor: colorScheme === "dark" ? "white" : "black",
         bottomAccessory: ({ placement }) => {
           return (
             <View style={{ padding: 16 }}>
@@ -41,9 +42,10 @@ function RootStack() {
         name="Overview"
         component={Overview}
         options={() => ({
+          tabBarLabel: "Home",
           tabBarIcon: ({ focused }) => ({
             type: "sfSymbol",
-            name: focused ? "house.fill" : "house",
+            name: focused ? "circle.inset.filled" : "circle",
           }),
         })}
       />
@@ -51,9 +53,21 @@ function RootStack() {
         name="People"
         component={PeopleStack}
         options={({ navigation }) => ({
+          tabBarLabel: "Expenses",
           tabBarIcon: ({ focused }) => ({
             type: "sfSymbol",
-            name: focused ? "person.fill" : "person",
+            name: focused ? "arrow.down.circle.fill" : "arrow.down.circle",
+          }),
+        })}
+      />
+         <Tab.Screen
+        name="Cards"
+        component={PeopleStack}
+        options={({ navigation }) => ({
+          tabBarLabel: "Cards",
+          tabBarIcon: ({ focused }) => ({
+            type: "sfSymbol",
+            name: focused ? "creditcard.circle.fill" : "creditcard.circle",
           }),
         })}
       />
@@ -61,9 +75,10 @@ function RootStack() {
         name="Settings"
         component={Settings}
         options={({ navigation }) => ({
+          tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => ({
             type: "sfSymbol",
-            name: focused ? "gear.circle.fill" : "gear.circle",
+            name: focused ? "person.crop.circle.fill" : "person.crop.circle",
           }),
         })}
       />
