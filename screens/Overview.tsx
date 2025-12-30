@@ -1,21 +1,27 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ScrollView, useColorScheme } from "react-native";
 
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../navigation";
+import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Overview">;
 
 export default function Overview({ navigation }: Props) {
+  const backgroundColor = useColorScheme() === "dark" ? "#000000" : "#eee";
+  const tintColor = useColorScheme() === "dark" ? "lime" : "lightblue";
   return (
-    <View style={styles.container}>
-      <Text>Overview</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <LinearGradient colors={[backgroundColor, tintColor, backgroundColor]} style={styles.gradient} />
+    </ScrollView>
   );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+  },
+  gradient: {
+    height: 5000,
   },
 });
