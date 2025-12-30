@@ -32,7 +32,7 @@ function RootStack() {
         bottomAccessory: ({ placement }) => {
           return (
             <View style={{ padding: 16 }}>
-              <Text>Placement: {placement}</Text>
+              <Text style={{ color: colorScheme === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)" }}>Ask me...</Text>
             </View>
           );
         },
@@ -61,7 +61,7 @@ function RootStack() {
         })}
       />
          <Tab.Screen
-        name="Cards"
+        name="PeopleIndex"
         component={PeopleStack}
         options={({ navigation }) => ({
           tabBarLabel: "Cards",
