@@ -4,6 +4,8 @@ import Settings from "../screens/Settings";
 import PeopleStack from "../navigation/people";
 import AskToolbarBottomAccessory from "../components/AskToolbarBottomAccessory";
 import { Text, useColorScheme, View } from "react-native";
+import { SymbolView } from "expo-symbols";
+import { useState } from "react";
 
 export type RootStackParamList = {
   Settings: undefined;
@@ -31,8 +33,13 @@ function RootStack() {
         tabBarActiveTintColor: colorScheme === "dark" ? "white" : "black",
         bottomAccessory: ({ placement }) => {
           return (
-            <View style={{ padding: 16 }}>
-              <Text style={{ color: colorScheme === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)" }}>Ask me...</Text>
+            <View style={{ padding: 0, alignItems: "center", flex: 1, paddingHorizontal: 4, flexDirection: "row", justifyContent: "space-between" }}>
+              <Text style={{ color: colorScheme === "dark" ? "rgba(255, 255, 255, 0.5)" : "rgba(0, 0, 0, 0.5)", fontSize: 17 }}>Ask me...</Text>
+              <SymbolView
+                name="arrow.up.circle.fill"
+                size={32}
+                tintColor={colorScheme === "dark" ? "white" : "black"}
+              />
             </View>
           );
         },
