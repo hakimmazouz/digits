@@ -50,7 +50,7 @@ function ContextMenuComponent({children}: {children: React.ReactNode}){
       Select files
     </Button>
     <Button
-      variant="glassProminent"
+      variant="bordered"
       systemImage="camera"
       onPress={() => console.log('Take photo')}>
       Take photo
