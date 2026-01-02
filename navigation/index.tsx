@@ -199,6 +199,14 @@ const Tab = createNativeBottomTabNavigator<RootStackParamList>();
 
 function RootStack() {
   const colorScheme = useColorScheme();
+  const [hostReady, setHostReady] = useState(false);
+
+  useEffect(() => {
+    // Delay Host render until after first frame to let native side initialize
+    const timer = setTimeout(() => setHostReady(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -211,15 +219,17 @@ function RootStack() {
               <View style={{paddingHorizontal: 8, flexDirection: "row", alignItems: "center", gap: 8}}>
               <SuggestionCarousel colorScheme={colorScheme} />
               </View>
-              <ContextMenuComponent>
-              <View style={{ width: 36, height: 36, backgroundColor: colorScheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)", borderRadius: 20, alignItems: "center", justifyContent: "center" }}>
-              <SymbolView
-                name="plus"
-                size={20}
-                tintColor={colorScheme === "dark" ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)"}
-                />
-              </View>
+              {hostReady && (
+                <ContextMenuComponent>
+                  <View style={{ width: 36, height: 36, backgroundColor: colorScheme === "dark" ? "rgba(255, 255, 255, 0.05)" : "rgba(0, 0, 0, 0.05)", borderRadius: 20, alignItems: "center", justifyContent: "center" }}>
+                    <SymbolView
+                      name="plus"
+                      size={20}
+                      tintColor={colorScheme === "dark" ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.7)"}
+                    />
+                  </View>
                 </ContextMenuComponent>
+              )}
             </View>
           );
         },
